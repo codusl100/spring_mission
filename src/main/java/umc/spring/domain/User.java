@@ -57,7 +57,7 @@ public class User extends BaseEntity {
     @Column(nullable = false, columnDefinition = "VARCHAR(10)")
     private Role role;
 
-    @Column(nullable = false)
+    @Column
     private LocalDate inactiveDate;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

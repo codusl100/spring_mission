@@ -28,7 +28,7 @@ public class UserMission extends BaseEntity {
     private Integer classificationNum;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 10)
+    @Column(length = 10)
     private SuccessFail successStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)

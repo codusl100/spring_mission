@@ -5,6 +5,7 @@ import umc.spring.domain.common.BaseEntity;
 import umc.spring.domain.enums.PlaceStatus;
 
 import javax.persistence.*;
+import java.sql.Time;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -27,10 +28,10 @@ public class Place extends BaseEntity {
     private String placeAddress;
 
     @Column(nullable = false)
-    private LocalDateTime openTime;
+    private Time openTime;
 
     @Column(nullable = false)
-    private LocalDateTime closeTime;
+    private Time closeTime;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, columnDefinition = "VARCHAR(10)")
