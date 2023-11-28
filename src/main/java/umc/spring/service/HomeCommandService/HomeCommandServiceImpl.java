@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import umc.spring.apiPayload.code.status.ErrorStatus;
 import umc.spring.apiPayload.exception.handler.MemberHandler;
 import umc.spring.apiPayload.exception.handler.MissionHandler;
+import umc.spring.apiPayload.exception.handler.UserMissionHandler;
 import umc.spring.converter.MissionConverter;
 import umc.spring.domain.Mission;
 import umc.spring.domain.User;
@@ -34,6 +35,7 @@ public class HomeCommandServiceImpl implements HomeCommandService {
 
         UserMission userMission = MissionConverter.toAddUserMission(mission);
         userMission.setUser(user);
+        userMissionRepository.findById(userMission.getId()).orElseThrow(() -> new UserMissionHandler(ErrorStatus.MISSION_STATUS_BAD_REQUEST));
         return userMissionRepository.save(userMission);
     }
 }
