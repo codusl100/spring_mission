@@ -2,6 +2,7 @@ package umc.spring.web.dto;
 
 import lombok.Getter;
 import umc.spring.validation.annotation.CheckRatePoint;
+import umc.spring.validation.annotation.ExistPlaces;
 import umc.spring.validation.annotation.LimitReviewPhoto;
 
 import javax.validation.constraints.NotNull;
@@ -17,6 +18,7 @@ public class MissionRequestDTO {
         String reviewText;
         @LimitReviewPhoto
         List<String> photoUrl;
+        @ExistPlaces
         Long placeId;
     }
 }
