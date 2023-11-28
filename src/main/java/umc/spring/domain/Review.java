@@ -34,4 +34,7 @@ public class Review extends BaseEntity {
 
     @OneToMany(mappedBy = "review")
     private List<ReviewPhoto> photoList;
+
+    public void setUser(User user){ this.user = user; }
+    public void setPlace(Place place){ this.place = place; }
 }
