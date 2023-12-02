@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import umc.spring.apiPayload.code.status.ErrorStatus;
 import umc.spring.domain.mapping.UserMission;
-import umc.spring.service.MissionService.MissionCommandService;
+import umc.spring.service.PlaceService.PlaceCommandService;
 import umc.spring.validation.annotation.CheckMissionStatus;
 
 import javax.validation.ConstraintValidator;
@@ -13,7 +13,7 @@ import javax.validation.ConstraintValidatorContext;
 @Component
 @RequiredArgsConstructor
 public class MissionCheckValidator implements ConstraintValidator<CheckMissionStatus, UserMission> {
-    private final MissionCommandService missionCommandService;
+    private final PlaceCommandService placeCommandService;
     @Override
     public void initialize(CheckMissionStatus constraintAnnotation) {
         ConstraintValidator.super.initialize(constraintAnnotation);
@@ -21,7 +21,7 @@ public class MissionCheckValidator implements ConstraintValidator<CheckMissionSt
 
     @Override
     public boolean isValid(UserMission value, ConstraintValidatorContext context) {
-        boolean isValid = missionCommandService.checkMissionStatus(value);
+        boolean isValid = placeCommandService.checkMissionStatus(value);
 
         if (!isValid) {
             context.disableDefaultConstraintViolation();

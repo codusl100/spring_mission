@@ -5,7 +5,7 @@ import umc.spring.domain.enums.MissionStatus;
 import umc.spring.domain.mapping.UserMission;
 import umc.spring.web.dto.AdminRequestDTO;
 import umc.spring.web.dto.AdminResponseDTO;
-import umc.spring.web.dto.MissionResponseDTO;
+import umc.spring.web.dto.PlaceResponseDTO;
 
 import java.time.LocalDateTime;
 
@@ -33,8 +33,8 @@ public class MissionConverter {
                 .build();
     }
 
-    public static MissionResponseDTO.challengeMissionDTO challengeMissionDTO (UserMission mission){
-        return MissionResponseDTO.challengeMissionDTO.builder()
+    public static PlaceResponseDTO.challengeMissionDTO challengeMissionDTO (UserMission mission){
+        return PlaceResponseDTO.challengeMissionDTO.builder()
                 .userMissionId(mission.getId())
                 .createdAt(LocalDateTime.now())
                 .build();
