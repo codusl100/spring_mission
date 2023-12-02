@@ -15,6 +15,7 @@ import umc.spring.converter.ReviewConverter;
 import umc.spring.domain.Review;
 import umc.spring.service.PlaceService.PlaceCommandService;
 import umc.spring.service.PlaceService.PlaceQueryService;
+import umc.spring.validation.annotation.CheckPage;
 import umc.spring.validation.annotation.ExistPlaces;
 import umc.spring.web.dto.PlaceRequestDTO;
 import umc.spring.web.dto.PlaceResponseDTO;
@@ -48,6 +49,20 @@ public class PlaceRestController {
     })
     public ApiResponse<PlaceResponseDTO.ReviewPreViewListDTO> getReviewList(@ExistPlaces @PathVariable(name = "placeId") Long placeId, @RequestParam(name = "page") Integer page){
         Page<Review> placePage = placeQueryService.getReviewList(placeId, page);
+        return ApiResponse.onSuccess(PlaceConverter.reviewPreViewListDTO(placePage));
+    }
+
+    @GetMapping("/reviews")
+    @Operation(summary = "내가 작성한 리뷰 목록 조회 API",description = "내가 작성한 리뷰들의 목록을 조회하는 API이며, 페이징을 포함합니다. query String 으로 page 번호를 주세요" +
+            "로그인 API가 존재하지 않아 jwt token으로 유저 구별하는 대신 특정 유저 id로 조회!")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200",description = "OK, 성공"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "AUTH003", description = "access 토큰을 주세요!",content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "AUTH004", description = "acess 토큰 만료",content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "AUTH006", description = "acess 토큰 모양이 이상함",content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+    })
+    public ApiResponse<PlaceResponseDTO.ReviewPreViewListDTO> getMyReviewList(@RequestParam(name = "page") Integer page){
+        Page<Review> placePage = placeQueryService.getMyReviewList(page-1);
         return ApiResponse.onSuccess(PlaceConverter.reviewPreViewListDTO(placePage));
     }
 }

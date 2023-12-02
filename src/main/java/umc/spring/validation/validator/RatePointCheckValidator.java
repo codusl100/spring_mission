@@ -10,14 +10,14 @@ import javax.validation.ConstraintValidatorContext;
 
 @Component
 @RequiredArgsConstructor
-public class RatePointCheckValidator implements ConstraintValidator<CheckRatePoint, Double> {
+public class RatePointCheckValidator implements ConstraintValidator<CheckRatePoint, Float> {
     @Override
     public void initialize(CheckRatePoint constraintAnnotation) {
         ConstraintValidator.super.initialize(constraintAnnotation);
     }
 
     @Override
-    public boolean isValid(Double value, ConstraintValidatorContext context) {
+    public boolean isValid(Float value, ConstraintValidatorContext context) {
         boolean isValid = value >= 1 && value <= 5;
 
         if (!isValid) {

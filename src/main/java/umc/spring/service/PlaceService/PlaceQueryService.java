@@ -11,4 +11,6 @@ public interface PlaceQueryService {
     Optional<Place> findStore(Long id);
 
     Page<Review> getReviewList(Long StoreId, Integer page);
+
+    Page<Review> getMyReviewList(Integer page);
 }
