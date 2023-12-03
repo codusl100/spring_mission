@@ -101,4 +101,11 @@ public class PlaceConverter {
                 .missionList(missionPreViewDTOList)
                 .build();
     }
+
+    public static PlaceResponseDTO.ChangeMissionStatusDTO changeMissionStatusDTO(UserMission userMission){
+        return PlaceResponseDTO.ChangeMissionStatusDTO.builder()
+                .missionStatus(userMission.getMissionStatus())
+                .updatedAt(userMission.getUpdatedAt().toLocalDate())
+                .build();
+    }
 }

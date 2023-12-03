@@ -19,4 +19,6 @@ public interface PlaceQueryService {
     Page<Mission> getMissionList(Long StoreId, Integer page);
 
     Page<UserMission> getMyMissionList(String missionStatus, Integer page);
+
+    UserMission changeMissionStatus(Long missionId);
 }

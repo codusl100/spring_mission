@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import umc.spring.apiPayload.code.status.ErrorStatus;
 import umc.spring.apiPayload.exception.handler.MemberHandler;
+import umc.spring.apiPayload.exception.handler.MissionHandler;
+import umc.spring.apiPayload.exception.handler.UserMissionHandler;
 import umc.spring.converter.PlaceConverter;
 import umc.spring.domain.Mission;
 import umc.spring.domain.Place;
@@ -67,5 +69,14 @@ public class PlaceQueryServiceImpl implements PlaceQueryService{
 
         Page<UserMission> usermissions = userMissionRepository.findAllByUserAndMissionStatus(user, MissionStatus.valueOf(missionStatus), PageRequest.of(page, 10));
         return usermissions;
+    }
+
+    @Override
+    public UserMission changeMissionStatus(Long missionId){
+        User user = memberRepository.findById(1L).orElseThrow(() -> new MemberHandler(ErrorStatus.MEMBER_NOT_FOUND));
+        Mission mission = missionRepository.findById(missionId).orElseThrow(() -> new MissionHandler(ErrorStatus.MISSION_NOT_FOUND));
+        UserMission userMission = userMissionRepository.findByMissionAndUserAndMissionStatus(mission, user, ONGOING).orElseThrow(() -> new UserMissionHandler(ErrorStatus.USER_MISSION_NOT_FOUND));
+        userMission.updateMissionStatus();
+        return userMissionRepository.save(userMission);
     }
 }
