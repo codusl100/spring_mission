@@ -1,6 +1,7 @@
 package umc.spring.converter;
 
 import org.springframework.data.domain.Page;
+import umc.spring.domain.Mission;
 import umc.spring.domain.Place;
 import umc.spring.domain.Review;
 import umc.spring.domain.enums.PlaceStatus;
@@ -52,6 +53,28 @@ public class PlaceConverter {
                 .totalElements(reviewList.getTotalElements())
                 .listSize(reviewPreViewDTOList.size())
                 .reviewList(reviewPreViewDTOList)
+                .build();
+    }
+
+    public static PlaceResponseDTO.MissionPreViewDTO missionPreViewDTO(Mission mission){
+        return PlaceResponseDTO.MissionPreViewDTO.builder()
+                .missionCondition(mission.getMissionCondition())
+                .missionPoint(mission.getMissionPoint())
+                .createdAt(mission.getCreatedAt().toLocalDate())
+                .build();
+    }
+
+    public static PlaceResponseDTO.MissionPreViewListDTO missionPreViewListDTO(Page<Mission> missionList){
+        List<PlaceResponseDTO.MissionPreViewDTO> missionPreViewDTOList = missionList.stream()
+                .map(PlaceConverter::missionPreViewDTO).collect(Collectors.toList());
+
+        return PlaceResponseDTO.MissionPreViewListDTO.builder()
+                .isLast(missionList.isLast())
+                .isFirst(missionList.isFirst())
+                .totalPage(missionList.getTotalPages())
+                .totalElements(missionList.getTotalElements())
+                .listSize(missionPreViewDTOList.size())
+                .missionList(missionPreViewDTOList)
                 .build();
     }
 }

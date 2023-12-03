@@ -8,10 +8,12 @@ import org.springframework.transaction.annotation.Transactional;
 import umc.spring.apiPayload.code.status.ErrorStatus;
 import umc.spring.apiPayload.exception.handler.MemberHandler;
 import umc.spring.converter.PlaceConverter;
+import umc.spring.domain.Mission;
 import umc.spring.domain.Place;
 import umc.spring.domain.Review;
 import umc.spring.domain.User;
 import umc.spring.repository.MemberRepository;
+import umc.spring.repository.MissionRepository;
 import umc.spring.repository.PlaceRepository;
 import umc.spring.repository.ReviewRepository;
 import umc.spring.validation.annotation.CheckPage;
@@ -26,6 +28,7 @@ public class PlaceQueryServiceImpl implements PlaceQueryService{
     private final PlaceRepository placeRepository;
     private final ReviewRepository reviewRepository;
     private final MemberRepository memberRepository;
+    private final MissionRepository missionRepository;
 
     @Override
     public Optional<Place> findStore(Long id) {
@@ -46,5 +49,13 @@ public class PlaceQueryServiceImpl implements PlaceQueryService{
 
         Page<Review> reviewPage = reviewRepository.findAllByUser(user, PageRequest.of(page, 10));
         return reviewPage;
+    }
+
+    @Override
+    public Page<Mission> getMissionList(Long StoreId, Integer page) {
+        Place store = placeRepository.findById(StoreId).get();
+
+        Page<Mission> missions = missionRepository.findAllByPlace(store, PageRequest.of(page, 10));
+        return missions;
     }
 }
