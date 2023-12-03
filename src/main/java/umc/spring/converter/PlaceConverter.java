@@ -5,6 +5,7 @@ import umc.spring.domain.Mission;
 import umc.spring.domain.Place;
 import umc.spring.domain.Review;
 import umc.spring.domain.enums.PlaceStatus;
+import umc.spring.domain.mapping.UserMission;
 import umc.spring.web.dto.AdminRequestDTO;
 import umc.spring.web.dto.AdminResponseDTO;
 import umc.spring.web.dto.PlaceResponseDTO;
@@ -67,6 +68,29 @@ public class PlaceConverter {
     public static PlaceResponseDTO.MissionPreViewListDTO missionPreViewListDTO(Page<Mission> missionList){
         List<PlaceResponseDTO.MissionPreViewDTO> missionPreViewDTOList = missionList.stream()
                 .map(PlaceConverter::missionPreViewDTO).collect(Collectors.toList());
+
+        return PlaceResponseDTO.MissionPreViewListDTO.builder()
+                .isLast(missionList.isLast())
+                .isFirst(missionList.isFirst())
+                .totalPage(missionList.getTotalPages())
+                .totalElements(missionList.getTotalElements())
+                .listSize(missionPreViewDTOList.size())
+                .missionList(missionPreViewDTOList)
+                .build();
+    }
+
+    public static PlaceResponseDTO.MissionPreViewDTO userMissionPreViewDTO(UserMission userMission){
+        Mission mission = userMission.getMission();
+        return PlaceResponseDTO.MissionPreViewDTO.builder()
+                .missionCondition(mission.getMissionCondition())
+                .missionPoint(mission.getMissionPoint())
+                .createdAt(mission.getCreatedAt().toLocalDate())
+                .build();
+    }
+
+    public static PlaceResponseDTO.MissionPreViewListDTO myMissionPreViewListDTO(Page<UserMission> missionList){
+        List<PlaceResponseDTO.MissionPreViewDTO> missionPreViewDTOList = missionList.stream()
+                .map(PlaceConverter::userMissionPreViewDTO).collect(Collectors.toList());
 
         return PlaceResponseDTO.MissionPreViewListDTO.builder()
                 .isLast(missionList.isLast())

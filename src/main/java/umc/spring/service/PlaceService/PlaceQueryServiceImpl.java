@@ -12,13 +12,14 @@ import umc.spring.domain.Mission;
 import umc.spring.domain.Place;
 import umc.spring.domain.Review;
 import umc.spring.domain.User;
-import umc.spring.repository.MemberRepository;
-import umc.spring.repository.MissionRepository;
-import umc.spring.repository.PlaceRepository;
-import umc.spring.repository.ReviewRepository;
+import umc.spring.domain.enums.MissionStatus;
+import umc.spring.domain.mapping.UserMission;
+import umc.spring.repository.*;
 import umc.spring.validation.annotation.CheckPage;
 
 import java.util.Optional;
+
+import static umc.spring.domain.enums.MissionStatus.ONGOING;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +30,7 @@ public class PlaceQueryServiceImpl implements PlaceQueryService{
     private final ReviewRepository reviewRepository;
     private final MemberRepository memberRepository;
     private final MissionRepository missionRepository;
+    private final UserMissionRepository userMissionRepository;
 
     @Override
     public Optional<Place> findStore(Long id) {
@@ -57,5 +59,13 @@ public class PlaceQueryServiceImpl implements PlaceQueryService{
 
         Page<Mission> missions = missionRepository.findAllByPlace(store, PageRequest.of(page, 10));
         return missions;
+    }
+
+    @Override
+    public Page<UserMission> getMyMissionList(String missionStatus, @CheckPage Integer page) {
+        User user = memberRepository.findById(1L).orElseThrow(() -> new MemberHandler(ErrorStatus.MEMBER_NOT_FOUND));
+
+        Page<UserMission> usermissions = userMissionRepository.findAllByUserAndMissionStatus(user, MissionStatus.valueOf(missionStatus), PageRequest.of(page, 10));
+        return usermissions;
     }
 }
