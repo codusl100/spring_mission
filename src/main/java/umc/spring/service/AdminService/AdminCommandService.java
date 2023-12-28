@@ -1,7 +1,11 @@
 package umc.spring.service.AdminService;
 
+import umc.spring.domain.Mission;
+import umc.spring.domain.Place;
 import umc.spring.web.dto.AdminRequestDTO;
 
 public interface AdminCommandService {
-    public void plusPlace(AdminRequestDTO.plusPlaceDTO request);
+    public Place plusPlace(AdminRequestDTO.plusPlaceDTO request);
+
+    public Mission plusMission(AdminRequestDTO.plusMissionDTO request);
 }
