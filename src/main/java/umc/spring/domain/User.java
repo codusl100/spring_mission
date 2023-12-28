@@ -9,6 +9,7 @@ import umc.spring.domain.enums.Gender;
 import umc.spring.domain.enums.Role;
 import umc.spring.domain.enums.SocialType;
 import umc.spring.domain.mapping.UserFood;
+import umc.spring.domain.mapping.UserMission;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -76,4 +77,7 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<UserFood> userFoodList;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<UserMission> userMissionList;
 }

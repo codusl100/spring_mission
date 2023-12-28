@@ -33,7 +33,10 @@ public enum ErrorStatus implements BaseErrorCode {
     // 리뷰
     REVIEW_RATEPOINT_BAD_REQUEST(HttpStatus.BAD_REQUEST, "REVIEW4001", "해당 점수로 별점을 매길 수 없습니다."),
     REVIEW_PHOTO_SIZE_BAD_REQUEST(HttpStatus.BAD_REQUEST, "REVIEW4002", "리뷰 사진은 3개 이내만 등록할 수 있습니다."),
-    REVIEW_TEXT_LENGTH_BAD_REQUEST(HttpStatus.BAD_REQUEST, "REVIEW4003", "텍스트 리뷰는 10자 이상 300자 이하로 작성 가능합니다.");
+    REVIEW_TEXT_LENGTH_BAD_REQUEST(HttpStatus.BAD_REQUEST, "REVIEW4003", "텍스트 리뷰는 10자 이상 300자 이하로 작성 가능합니다."),
+    // 미션
+    MISSION_NOT_FOUND(HttpStatus.NOT_FOUND, "MISSION4001", "미션을 찾을 수 없습니다."),
+    MISSION_STATUS_BAD_REQUEST(HttpStatus.BAD_REQUEST, "MISSION4002", "이미 진행 중이거나 완료된 미션입니다.");
     private final HttpStatus httpStatus;
     private final String code;
     private final String message;
