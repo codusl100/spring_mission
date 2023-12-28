@@ -19,7 +19,7 @@ public class Review extends BaseEntity {
     private Long id;
 
     @Column(nullable = false)
-    private Double ratePoint;
+    private Float ratePoint;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String reviewText;
@@ -34,4 +34,7 @@ public class Review extends BaseEntity {
 
     @OneToMany(mappedBy = "review")
     private List<ReviewPhoto> photoList;
+
+    public void setUser(User user){ this.user = user; }
+    public void setPlace(Place place){ this.place = place; }
 }
