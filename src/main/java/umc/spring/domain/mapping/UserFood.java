@@ -26,4 +26,15 @@ public class UserFood extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "foodTypeId")
     private FoodType foodType;
+
+    public void setMember(User member){
+        if(this.user != null)
+            member.getUserFoodList().remove(this);
+        this.user = member;
+        member.getUserFoodList().add(this);
+    }
+
+    public void setFoodCategory(FoodType foodCategory){
+        this.foodType = foodCategory;
+    }
 }
