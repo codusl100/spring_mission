@@ -30,4 +30,6 @@ public class Mission extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "placeId")
     private Place place;
+
+    public void setPlace(Place place){this.place = place;}
 }
