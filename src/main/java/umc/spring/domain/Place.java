@@ -7,6 +7,7 @@ import umc.spring.domain.enums.PlaceStatus;
 import javax.persistence.*;
 import java.sql.Time;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
@@ -28,10 +29,10 @@ public class Place extends BaseEntity {
     private String placeAddress;
 
     @Column(nullable = false)
-    private Time openTime;
+    private LocalTime openTime;
 
     @Column(nullable = false)
-    private Time closeTime;
+    private LocalTime closeTime;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, columnDefinition = "VARCHAR(10)")
@@ -46,4 +47,6 @@ public class Place extends BaseEntity {
 
     @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
     private List<Mission> missionList;
+
+    public void setFoodType(FoodType foodType){this.foodType = foodType;}
 }
