@@ -3,7 +3,7 @@ package umc.spring.validation.validator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import umc.spring.apiPayload.code.status.ErrorStatus;
-import umc.spring.service.PlaceService.PlaceQueryService;
+import umc.spring.service.PlaceService.PlaceCommandService;
 import umc.spring.validation.annotation.ExistPlaces;
 
 import javax.validation.ConstraintValidator;
@@ -13,7 +13,7 @@ import javax.validation.ConstraintValidatorContext;
 @RequiredArgsConstructor
 public class PlacesExistValidator implements ConstraintValidator<ExistPlaces, Long> {
 
-    private final PlaceQueryService placeQueryService;
+    private final PlaceCommandService placeCommandService;
 
     @Override
     public void initialize(ExistPlaces constraintAnnotation) {
@@ -22,7 +22,7 @@ public class PlacesExistValidator implements ConstraintValidator<ExistPlaces, Lo
 
     @Override
     public boolean isValid(Long value, ConstraintValidatorContext context) {
-        boolean isValid = placeQueryService.checkPlaces(value);
+        boolean isValid = placeCommandService.checkPlaces(value);
 
         if (!isValid) {
             context.disableDefaultConstraintViolation();
